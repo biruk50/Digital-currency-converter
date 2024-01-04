@@ -1,0 +1,117 @@
+# Digital Currency Converter with Digit Detection using OpenCV and Tesseract OCR
+
+This documentation provides an overview and explanation of the Digital Currency Converter program. The program uses OpenCV for image processing, Tesseract OCR for optical character recognition, and Alpha Vantage API for real-time currency exchange rate information.
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Dependencies](#dependencies)
+3. [Program Structure](#program-structure)
+4. [Functionality](#functionality)
+5. [Usage](#usage)
+6. [Build and Run](#build-and-run)
+7. [Code Documentation](#code-documentation)
+   - [Constants](#constants)
+   - [Structures](#structures)
+   - [Functions](#functions)
+   - [Main Function](#main-function)
+8. [Conclusion](#conclusion)
+
+## Introduction
+
+The Digital Currency Converter is a C++ program designed to convert currency in real-time based on a video feed. It uses OpenCV to process video frames, detects digits using image processing techniques, performs OCR using Tesseract, and retrieves real-time exchange rates using the Alpha Vantage API.
+
+## Dependencies
+
+- OpenCV: Open Source Computer Vision Library.
+- Tesseract OCR: An OCR engine developed by Google.
+- Leptonica: A software library for image processing and image analysis.
+- cURL: A command-line tool and library for transferring data with URLs.
+- Alpha Vantage API Key: Sign up for a free API key at [Alpha Vantage](https://www.alphavantage.co/).
+
+## Program Structure
+
+The program consists of the following components:
+
+- **Constants:** Parameters such as minimum pixel area, width, height, and aspect ratio for digit detection.
+- **Structures:** `PossibleChar` and `ApiResponse` structures to store information about detected characters and API responses, respectively.
+- **Functions:** Functions for real-time currency exchange rate retrieval, cURL request handling, and character validation.
+- **Main Function:** The main loop captures video frames, performs image processing, detects digits, performs OCR, and displays the converted currency information.
+
+## Functionality
+
+1. **Currency Selection:** Users can select the source and target currencies by entering corresponding numbers.
+2. **Video Feed Processing:** The program captures video frames and converts them to grayscale.
+3. **Digit Detection:** Image thresholding and contour detection are applied to identify potential digit regions.
+4. **Character Validation:** Possible characters are filtered based on predefined criteria to eliminate noise.
+5. **OCR Recognition:** Tesseract OCR is applied to the detected digit regions.
+6. **Currency Conversion:** Real-time exchange rates are retrieved using the Alpha Vantage API, and currency conversion is performed.
+7. **Display:** The program displays the original and converted currency information on the video feed.
+
+## Usage
+
+1. **Currency Selection:**
+   - Enter the number corresponding to the source currency.
+   - Enter the number corresponding to the target currency.
+
+2. **Video Feed:**
+   - The program will open a video feed window showing the processed frames.
+   - Digits in the video feed are identified, and the converted currency information is displayed.
+
+3. **Exiting the Program:**
+   - Press the 'Esc' key to exit the program.
+
+## Build and Run
+
+1. **Dependencies Installation:**
+   - Install OpenCV, Tesseract OCR, Leptonica, and cURL libraries.
+   - Obtain an API key from Alpha Vantage.
+
+2. **Build the Program:**
+   - Use a C++ compiler to build the program, linking against the required libraries.
+
+3. **Run the Program:**
+   - Execute the built program, ensuring that the necessary libraries and dependencies are accessible.
+
+## Code Documentation
+
+### Constants
+
+- **MIN_PIXEL_AREA:** Minimum pixel area for character detection.
+- **MIN_PIXEL_WIDTH:** Minimum pixel width for character detection.
+- **MIN_PIXEL_HEIGHT:** Minimum pixel height for character detection.
+- **MIN_ASPECT_RATIO:** Minimum aspect ratio for character detection.
+- **MAX_ASPECT_RATIO:** Maximum aspect ratio for character detection.
+
+### Structures
+
+- **PossibleChar:** Structure to store information about a potential character (bounding rectangle and aspect ratio).
+- **ApiResponse:** Structure to store API response data and result code.
+
+### Functions
+
+- **RealTimeCurrencyExchangeRate:** Retrieves real-time currency exchange rate from the Alpha Vantage API.
+- **WriteCallback:** Callback function for handling cURL response data.
+- **PerformGetRequest:** Performs a GET request using cURL and returns the API response.
+- **checkIfPossibleChar:** Validates if a detected character meets predefined criteria.
+- **getCurrencyCode:** Returns the currency code based on the user's selection.
+
+### Main Function
+
+- **User Input:** Accepts user input for source and target currencies.
+- **Video Capture:** Captures video frames using OpenCV.
+- **Image Processing:** Converts frames to grayscale and applies thresholding.
+- **Contour Detection:** Identifies potential character regions using contour detection.
+- **Character Validation:** Filters out noise by validating detected characters.
+- **OCR Recognition:** Applies Tesseract OCR to recognize digits.
+Currency Conversion: Retrieves real-time exchange rates and performs currency conversion.
+Display: Displays the original and converted currency information on the video feed.
+                                                                       
+Conclusion
+The Digital Currency Converter with Digit Detection provides a practical application of computer vision and OCR techniques to convert currency in real-time. Users can interactively select source and target currencies, and the program displays the converted currency information on a live video feed. This project demonstrates the integration of various libraries and APIs to create a functional and user-friendly application.
+
+
+
+
+
+
