@@ -11,7 +11,7 @@
 using namespace std;
 using namespace cv;
 
-string api_key = "LH955NFH1QXRXOBN";
+string api_key = "(insert here)";
 
 // Constants for char detection
 const int MIN_PIXEL_AREA = 100, MIN_PIXEL_WIDTH = 5, MIN_PIXEL_HEIGHT = 10;
