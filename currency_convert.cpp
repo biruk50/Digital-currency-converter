@@ -10,7 +10,7 @@
 using namespace std;
 using namespace cv;
 
-string api_key = "LH955NFH1QXRXOBN";
+string api_key = "(goes here)";
 
 // Constants for char detection
 const int MIN_PIXEL_AREA = 100;
