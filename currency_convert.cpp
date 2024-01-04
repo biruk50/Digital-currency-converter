@@ -1,3 +1,4 @@
+
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <tesseract/baseapi.h>
@@ -10,54 +11,82 @@
 using namespace std;
 using namespace cv;
 
-string api_key = "(goes here)";
+string api_key = "LH955NFH1QXRXOBN";
 
 // Constants for char detection
-const int MIN_PIXEL_AREA = 100;
-const int MIN_PIXEL_WIDTH = 5;
-const int MIN_PIXEL_HEIGHT = 10;
-const double MIN_ASPECT_RATIO = 0.2;
-const double MAX_ASPECT_RATIO = 2.0;
+const int MIN_PIXEL_AREA = 100, MIN_PIXEL_WIDTH = 5, MIN_PIXEL_HEIGHT = 10;
+const double MIN_ASPECT_RATIO = 0.2, MAX_ASPECT_RATIO = 2.0;
 
-int actual_number;
+int actual_number;//stores the digit extracted from the video feed
 
 struct PossibleChar {
     Rect boundingRect;
     double dblAspectRatio;
 };
 // Struct to store the API response
-
 struct ApiResponse {
     string data;
     CURLcode result;
 };
-//functions for the currency converter
+
+/**
+ * Perform real-time currency exchange rate calculation using the Alpha Vantage API.
+ *
+ * @param[in] from_currency The currency code for the source currency.
+ * @param[in] to_currency The currency code for the target currency.
+ * @param[in] api_key The API key for accessing the Alpha Vantage API.
+ * @return The real-time exchange rate from the source to the target currency.
+ */
 double RealTimeCurrencyExchangeRate(const string& from_currency, const string& to_currency, const string& api_key);
+
+/**
+ * Callback function for writing response data from the Alpha Vantage API.
+ *
+ * @param[out] contents The received data.
+ * @param[in] size The size of each data element.
+ * @param[in] nmemb The number of data elements.
+ * @param[out] response The API response structure to store the data.
+ * @return The total size of the received data.
+ */
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, ApiResponse* response);
+
+/**
+ * Perform a GET request to the specified URL and return the API response.
+ *
+ * @param[in] url The URL to perform the GET request.
+ * @return The API response containing data and result code.
+ */
 ApiResponse PerformGetRequest(const string& url);
 
+/**
+ * Check if a contour is a possible character based on predefined criteria.
+ *
+ * @param[out] possibleChar The possible character structure to be checked.
+ * @param[in] image The image containing the contour.
+ * @return True if the contour is a possible character, false otherwise.
+ */
 bool checkIfPossibleChar(PossibleChar& possibleChar, const Mat& image);
 
 string getCurrencyCode(int index);
 int main() {
-     cout<<"\t\t\t***********************************************************************"<<endl;
-	 cout<<"\t\t\t                       WELCOME TO Our Digital Currency Converter                    "<<endl;
-     cout<<"\t\t\t***********************************************************************"<<endl<<endl<<endl;
-     int i,j;
-     string from_currency,to_currency;
-     cout<< "Enter the number that corresponds to the currency you want to be detected:\n"
-            "1.United States Dollar(USD)\n2.Ethiopian Birr(ETB)\n3.Euro(EUR)\n4.Japanese Yen(JPY)\n5.Russian Ruble(RUB)\n\n";
-     cin >> i;
+    cout << "\t\t\t***********************************************************************" << endl;
+    cout << "\t\t\t                       WELCOME TO Our Digital Currency Converter                    " << endl;
+    cout << "\t\t\t***********************************************************************" << endl << endl << endl;
+    int i, j;
+    string from_currency, to_currency;
+    cout << "Enter the number that corresponds to the currency you want to be detected:\n"
+        "1.United States Dollar(USD)\n2.Ethiopian Birr(ETB)\n3.Euro(EUR)\n4.Japanese Yen(JPY)\n5.Russian Ruble(RUB)\n\n";
+    cin >> i;
 
-     from_currency = getCurrencyCode(i);
-     cout<< "Enter the number that corresponds to the currency you want converted to:\n"
-             "1.United States Dollar(USD)\n2.Ethiopian Birr(ETB)\n3.Euro(EUR)\n4.Japanese Yen(JPY)\n5.Russian Ruble(RUB)\n";
-     cin >> j;
-     to_currency = getCurrencyCode(j);
+    from_currency = getCurrencyCode(i);
+    cout << "Enter the number that corresponds to the currency you want converted to:\n"
+        "1.United States Dollar(USD)\n2.Ethiopian Birr(ETB)\n3.Euro(EUR)\n4.Japanese Yen(JPY)\n5.Russian Ruble(RUB)\n";
+    cin >> j;
+    to_currency = getCurrencyCode(j);
 
-     double rate = RealTimeCurrencyExchangeRate(from_currency, to_currency, api_key);
-     cout << rate;
-     
+    double rate = RealTimeCurrencyExchangeRate(from_currency, to_currency, api_key);
+    cout << rate;
+
     VideoCapture video(1);
 
     while (true) {
@@ -79,7 +108,7 @@ int main() {
         // Vector to store possible characters
         vector<PossibleChar> possibleChars;
 
-   
+
         // Iterate through contours
         for (const auto& contour : contours) {
             // Create a PossibleChar structure only if the contour is valid
@@ -218,3 +247,4 @@ bool checkIfPossibleChar(PossibleChar& possibleChar, const Mat& image) {
         possibleChar.boundingRect.width > MIN_PIXEL_WIDTH && possibleChar.boundingRect.height > MIN_PIXEL_HEIGHT &&
         MIN_ASPECT_RATIO < possibleChar.dblAspectRatio && possibleChar.dblAspectRatio < MAX_ASPECT_RATIO);
 }
+
