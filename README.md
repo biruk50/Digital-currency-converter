@@ -1,4 +1,7 @@
-The Digital Currency Converter is a C++ program designed to convert currency in real-time based on a video feed.
--It uses OpenCV to process video frames
--detects digits using image processing techniques and performs OCR using Tesseract
--then retrieves real-time exchange rates using the Alpha Vantage API.
+This C++ program converts currency in real-time based on a video feed.
+
+-It uses OpenCV,and detects digits using Tesseract then  retrieves real-time exchange rates using the Alpha Vantage API.
+
+You need to install openCv,Tesseract,have the eng.traineddata(english tessdata),alpha vantage apikey
+
+-optionally if you want to connect it with your phone(to produce the video feed),you can use softwares like iriun
